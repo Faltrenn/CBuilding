@@ -3,10 +3,10 @@
 ///                 Centro de Ensino Superior do Seridó                     ///
 ///               Departamento de Computação e Tecnologia                   ///
 ///                  Disciplina DCT1106 -- Programação                      ///
-///                  Projeto Sistema de Gestão Escolar                      ///
 ///             Developed by @flgorgonio -- since Mar, 2020                 ///
 ///////////////////////////////////////////////////////////////////////////////
 ///                                Semana 2                                 ///
+///                  Projeto Sistema de Gestão Escolar                      ///
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
@@ -24,7 +24,8 @@ void tela_pesquisar_aluno(void);
 void tela_alterar_aluno(void);
 void tela_excluir_aluno(void);
 
-void cabecalho(void);
+void cabecalho1(void);
+void cabecalho2(void);
 
 /////
 // Programa principal
@@ -44,7 +45,7 @@ int main(void) {
 /////
 // Funções
 
-void cabecalho() {
+void cabecalho1(void) {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
@@ -53,18 +54,22 @@ void cabecalho() {
     printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
     printf("///    Projeto Sistema de Gestão Material para fornecedores de materiais    ///\n");
     printf("///                               de constução                              ///\n");
-    printf("///              Developed by @Faltrenn -- since Mar, 2020                  ///\n");
+    printf("///              Developed by @Faltrenn -- since Aug, 2023                  ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
+}
+
+void cabecalho2(void) {
+
 }
 
 void tela_menu_principal(void) {
     char op;
     system("clear||cls");
     printf("\n");
-    // cabecalho({"", ""});
+    cabecalho1();
     printf("///                                                                         ///\n");
-    printf("///            = = = = = Sistema de Gestão Escolar = = = = =                ///\n");
+    printf("///         = = = = = Sistema de Gestão de Materiais = = = = =              ///\n");
     printf("///                                                                         ///\n");
     printf("///            1. Módulo Aluno                                              ///\n");
     printf("///            2. Módulo Professor                                          ///\n");
@@ -87,15 +92,7 @@ void tela_menu_principal(void) {
 void tela_sobre(void) {
     system("clear||cls");
     printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
-    printf("///               Departamento de Computação e Tecnologia                   ///\n");
-    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
-    printf("///                  Projeto Sistema de Gestão Escolar                      ///\n");
-    printf("///             Developed by @flgorgonio -- since Mar, 2020                 ///\n");
-    printf("///                                                                         ///\n");
+    cabecalho1();
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            = = = = = Sistema de Gestão Escolar = = = = =                ///\n");
@@ -116,25 +113,16 @@ void tela_sobre(void) {
 void tela_equipe(void) {
     system("clear||cls");
     printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
-    printf("///               Departamento de Computação e Tecnologia                   ///\n");
-    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
-    printf("///                  Projeto Sistema de Gestão Escolar                      ///\n");
-    printf("///             Developed by @flgorgonio -- since Mar, 2020                 ///\n");
-    printf("///                                                                         ///\n");
+    cabecalho1();
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            = = = = = Sistema de Gestão Escolar = = = = =                ///\n");
     printf("///                                                                         ///\n");
     printf("///            Este projeto exemplo foi desenvolvido por:                   ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Prof. Flavius Gorgônio                                       ///\n");
-    printf("///            E-mail: flavius.gorgonio@ufrn.br                             ///\n");
-    printf("///            Redes sociais: @flgorgonio                                   ///\n");
-    printf("///            Git: https://github.com/FlaviusGorgonio/LinguaSolta.git      ///\n");
+    printf("///            Emanuel Alves de Medeiros                                    ///\n");
+    printf("///            E-mail: emanuelalvesps5@gmail.com                            ///\n");
+    printf("///            Git: https://github.com/Faltrenn/CBuilding.git               ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
@@ -151,10 +139,10 @@ void tela_menu_aluno(void) {
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            = = = =   Escola de Idiomas Língua Solta    = = = =          ///\n");
+    printf("///            = = = =     Gerenciamento de materiais      = = = =          ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
-    printf("///               Developed by @flgorgonio -- since Mar, 2020               ///\n");
+    printf("///                Developed by @faltrenn -- since Aug, 2023                ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
