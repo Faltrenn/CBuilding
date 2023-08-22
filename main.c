@@ -3,7 +3,7 @@
 ///                 Centro de Ensino Superior do Seridó                     ///
 ///               Departamento de Computação e Tecnologia                   ///
 ///                  Disciplina DCT1106 -- Programação                      ///
-///             Developed by @flgorgonio -- since Mar, 2020                 ///
+///             Developed by @faltrenn -- since Aug, 2023                   ///
 ///////////////////////////////////////////////////////////////////////////////
 ///                                Semana 2                                 ///
 ///                  Projeto Sistema de Gestão Escolar                      ///
@@ -33,7 +33,7 @@ char* centralizar_texto(char * titulo, int tam);
 // Programa principal
 int main(void) {
     tela_menu_principal();
-    tela_sobre("Programa de Gestao de Materiais de Construcao que visa facilitar o controle de estoque e vendas de uma loja de materiais de construcao.");
+    tela_sobre("Programa de Gestão de Materiais de Construção que visa facilitar o controle de estoque e vendas de uma loja de materiais de construção.");
     tela_equipe();
     tela_menu_material();
     tela_cadastrar_material();
@@ -75,6 +75,13 @@ void cabecalho2(char *titulo) {
 }
 
 char* centralizar_texto(char * texto, int tam) {
+    for(int c = 0;c < tam;c++) {
+        if(texto[c] < 0) {
+            tam++;
+            c++;
+        }
+    }
+
     int tam_texto = strlen(texto);
     int pos = tam/2 - tam_texto/2;
     char *str= malloc(tam * sizeof(char));
@@ -143,7 +150,9 @@ void tela_sobre(char *desc) {
         if(desc[c] == ' ') {
             linha = malloc((strlen(desc) + 1) * sizeof(char));
             aux = c;
-            strcpy(linha, cortar_string(desc, inicio_linha, c));
+            char *str = cortar_string(desc, inicio_linha, c);
+            strcpy(linha, str);
+            free(str);
         }
         if (c % limite == 0 && c != 0) {
             printf("/// %s ///\n", centralizar_texto(linha, limite));
