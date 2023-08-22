@@ -11,33 +11,35 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 
 /////
 // Assinatura das funções
 void tela_menu_principal(void);
-void tela_sobre(void);
 void tela_equipe(void);
-void tela_menu_aluno(void);
-void tela_cadastrar_aluno(void);
-void tela_pesquisar_aluno(void);
-void tela_alterar_aluno(void);
-void tela_excluir_aluno(void);
+void tela_sobre(char *desc);
+void tela_menu_material(void);
+void tela_cadastrar_material(void);
+void tela_pesquisar_material(void);
+void tela_alterar_material(void);
+void tela_excluir_material(void);
 
 void cabecalho1(void);
-void cabecalho2(void);
+void cabecalho2(char * titulo);
+char* centralizar_texto(char * titulo, int tam);
 
 /////
 // Programa principal
 int main(void) {
     tela_menu_principal();
-    tela_sobre();
+    tela_sobre("Programa de Gestao de Materiais de Construcao que visa facilitar o controle de estoque e vendas de uma loja de materiais de construcao.");
     tela_equipe();
-    tela_menu_aluno();
-    tela_cadastrar_aluno();
-    tela_pesquisar_aluno();
-    tela_alterar_aluno();
-    tela_excluir_aluno();
+    tela_menu_material();
+    tela_cadastrar_material();
+    tela_pesquisar_material();
+    tela_alterar_material();
+    tela_excluir_material();
     return 0;
 }
 
@@ -59,8 +61,31 @@ void cabecalho1(void) {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
 }
 
-void cabecalho2(void) {
+void cabecalho2(char *titulo) {
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            = = = =%s= = = =          ///\n", centralizar_texto(titulo, 37));
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
+    printf("///            ===================================================          ///\n");
+    printf("///                Developed by @faltrenn -- since Aug, 2023                ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+}
 
+char* centralizar_texto(char * texto, int tam) {
+    int tam_texto = strlen(texto);
+    int pos = tam/2 - tam_texto/2;
+    char *str= malloc(tam * sizeof(char));
+    for(int c = 0; c < tam; c++) {
+        if(c >= pos && c < (pos + tam_texto)) {
+            str[c] = texto[c-pos];
+        } else {
+            str[c] = ' ';
+        }
+    }
+    return str;
 }
 
 void tela_menu_principal(void) {
@@ -71,11 +96,12 @@ void tela_menu_principal(void) {
     printf("///                                                                         ///\n");
     printf("///         = = = = = Sistema de Gestão de Materiais = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            1. Módulo Aluno                                              ///\n");
-    printf("///            2. Módulo Professor                                          ///\n");
-    printf("///            3. Módulo Turma                                              ///\n");
-    printf("///            4. Módulo Matrícula                                          ///\n");
-    printf("///            5. Módulo Relatórios                                         ///\n");
+    printf("///            1. Módulo Materiais                                          ///\n");
+    printf("///            2. Módulo Clientes                                           ///\n");
+    printf("///            3. Módulo Vendas                                             ///\n");
+    printf("///            4. Módulo Relatórios                                         ///\n");
+    printf("///            5. Equipe                                                    ///\n");
+    printf("///            6. Sobre                                                     ///\n");
     printf("///            0. Sair                                                      ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
@@ -89,19 +115,47 @@ void tela_menu_principal(void) {
 }
 
 
-void tela_sobre(void) {
+char* cortar_string(char *str, int inicio, int fim) {
+    char *nova_str = malloc((fim - inicio + 1) * sizeof(char));
+    int c = 0;
+    for(int i = inicio; i < fim; i++) {
+        nova_str[c] = str[i];
+        c++;
+    }
+    nova_str[c] = '\0';
+    return nova_str;
+}
+
+void tela_sobre(char *desc) {
     system("clear||cls");
     printf("\n");
     cabecalho1();
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
     printf("///            = = = = = Sistema de Gestão Escolar = = = = =                ///\n");
     printf("///                                                                         ///\n");
-    printf("///  Programa exemplo utilizado na disciplina DCT1106 - Programação, para   ///\n");
-    printf("///  fins didáticos de ilustração. O programa contém os principais módulos  ///\n");
-    printf("///  e funcionalidades que serão exigidos na avaliação dos projetos a serem ///\n");
-    printf("///  desenvolvidos pelos alunos ao longo da disciplina. Serve como um guia  ///\n");
-    printf("///  de consulta e referência para o desenvolvidos dos demais projetos.     ///\n");
+
+    int limite = 71;
+    int inicio_linha = 0;
+    int aux = 0;
+    char *linha = malloc(limite * sizeof(char));
+
+    for(int c = 0; c < strlen(desc); c++) {
+        if(desc[c] == ' ') {
+            linha = malloc((strlen(desc) + 1) * sizeof(char));
+            aux = c;
+            strcpy(linha, cortar_string(desc, inicio_linha, c));
+        }
+        if (c % limite == 0 && c != 0) {
+            printf("/// %s ///\n", centralizar_texto(linha, limite));
+            linha = NULL;
+            inicio_linha = aux;
+        }
+    }
+    if(linha != NULL) {
+        printf("/// %s ///\n", centralizar_texto(linha, limite));
+    }
+    free(linha);
+
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
@@ -114,15 +168,14 @@ void tela_equipe(void) {
     system("clear||cls");
     printf("\n");
     cabecalho1();
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
-    printf("///            = = = = = Sistema de Gestão Escolar = = = = =                ///\n");
+    printf("///          = = = = = Sistema de gestão de materiais = = = = =             ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Este projeto exemplo foi desenvolvido por:                   ///\n");
+    printf("///          Este projeto exemplo foi desenvolvido por:                     ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Emanuel Alves de Medeiros                                    ///\n");
-    printf("///            E-mail: emanuelalvesps5@gmail.com                            ///\n");
-    printf("///            Git: https://github.com/Faltrenn/CBuilding.git               ///\n");
+    printf("///          Emanuel Alves de Medeiros                                      ///\n");
+    printf("///          E-mail: emanuelalvesps5@gmail.com                              ///\n");
+    printf("///          Git: https://github.com/Faltrenn/CBuilding.git                 ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
@@ -131,29 +184,20 @@ void tela_equipe(void) {
 } 
 
 
-void tela_menu_aluno(void) {
+void tela_menu_material(void) {
     char op;
     system("clear||cls");
     printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            = = = =     Gerenciamento de materiais      = = = =          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///                Developed by @faltrenn -- since Aug, 2023                ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    cabecalho2("Modulo Materiais de Construcao");
     printf("///                                                                         ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = =  Menu Aluno = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = = Menu Materiais  = = = = = = = =              ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            1. Cadastrar um novo aluno                                   ///\n");
-    printf("///            2. Pesquisar os dados de um aluno                            ///\n");
-    printf("///            3. Atualizar o cadastro de um aluno                          ///\n");
-    printf("///            4. Excluir um aluno do sistema                               ///\n");
+    printf("///            1. Cadastrar material                                        ///\n");
+    printf("///            2. Pesquisar material                                        ///\n");
+    printf("///            3. Atualizar material                                        ///\n");
+    printf("///            4. Excluir material                                          ///\n");
     printf("///            0. Voltar ao menu anterior                                   ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
@@ -168,29 +212,37 @@ void tela_menu_aluno(void) {
 }
 
 
-void tela_cadastrar_aluno(void) {
+void tela_cadastrar_material(void) {
     system("clear||cls");
     printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            = = = =   Escola de Idiomas Língua Solta    = = = =          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///               Developed by @flgorgonio -- since Mar, 2020               ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    cabecalho2("Gestao de materiais de construcao");
     printf("///                                                                         ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Cadastrar Aluno = = = = = = = =              ///\n");
+    printf("///            = = = = = = = Cadastrar Material  = = = = = = =              ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Matrícula (apenas números):                                  ///\n");
-    printf("///            Nome completo:                                               ///\n");
-    printf("///            E-mail:                                                      ///\n");
-    printf("///            Data de Nascimento (dd/mm/aaaa):                             ///\n");
-    printf("///            Celular  (apenas números):                                   ///\n");
+    printf("///            Nome:                                                        ///\n");
+    printf("///            Marca:                                                       ///\n");
+    printf("///            Categoria:                                                   ///\n");
+    printf("///            Quantidade:                                                  ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+
+void tela_pesquisar_material(void) {
+    system("clear||cls");
+    printf("\n");
+    cabecalho2("Gestao de materiais de construcao");
+    printf("///                                                                         ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = Pesquisar Material  = = = = = = =              ///\n");
+    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            Informe o id:                                                ///\n");
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -200,25 +252,16 @@ void tela_cadastrar_aluno(void) {
 }
 
 
-void tela_pesquisar_aluno(void) {
+void tela_alterar_material(void) {
     system("clear||cls");
     printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            = = = =   Escola de Idiomas Língua Solta    = = = =          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///               Developed by @flgorgonio -- since Mar, 2020               ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    cabecalho2("Gestao de materiais de construcao");
     printf("///                                                                         ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Pesquisar Aluno = = = = = = = =              ///\n");
+    printf("///            = = = = = = = Alterar Material  = = = = = = = =              ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Informe a matrícula (apenas números):                        ///\n");
+    printf("///            Informe o id:                                                ///\n");
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -228,57 +271,20 @@ void tela_pesquisar_aluno(void) {
 }
 
 
-void tela_alterar_aluno(void) {
+void tela_excluir_material(void) {
     system("clear||cls");
     printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            = = = =   Escola de Idiomas Língua Solta    = = = =          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///               Developed by @flgorgonio -- since Mar, 2020               ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    cabecalho2("Gestao de materiais de construcao");
     printf("///                                                                         ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Alterar Aluno = = = = = = = = =              ///\n");
+    printf("///            = = = = = = = Excluir Material  = = = = = = = =              ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Informe a matrícula (apenas números):                        ///\n");
+    printf("///            Informe o id:                                                ///\n");
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
-}
-
-
-void tela_excluir_aluno(void) {
-    system("clear||cls");
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            = = = =   Escola de Idiomas Língua Solta    = = = =          ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            ===================================================          ///\n");
-    printf("///               Developed by @flgorgonio -- since Mar, 2020               ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Excluir Aluno = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
-    printf("///            Informe a matrícula (apenas números):                        ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-}
+}\
