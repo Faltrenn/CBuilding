@@ -28,6 +28,7 @@ void tela_excluir_material(void);
 void cabecalho1(void);
 void cabecalho2(char * titulo);
 char* centralizar_texto(char * titulo, int tam);
+char* cortar_string(char *str, int inicio, int fim);
 
 /////
 // Programa principal
@@ -95,6 +96,31 @@ char* centralizar_texto(char * texto, int tam) {
     return str;
 }
 
+void mostrar_descricao(char *desc, int limite) {
+    int inicio_linha = 0;
+    int aux = 0;
+    char *linha = malloc(limite * sizeof(char));
+
+    for(int c = 0; c < strlen(desc); c++) {
+        if(desc[c] == ' ' || desc[c] == '\n' || desc[c] == '\0') {
+            linha = malloc((strlen(desc) + 1) * sizeof(char));
+            aux = c;
+            char *str = cortar_string(desc, inicio_linha, c);
+            strcpy(linha, str);
+            free(str);
+        }
+        if (c % limite == 0 && c != 0) {
+            printf("/// %s ///\n", centralizar_texto(linha, limite));
+            linha = NULL;
+            inicio_linha = aux;
+        }
+    }
+    if(linha != NULL) {
+        printf("/// %s ///\n", centralizar_texto(linha, limite));
+    }
+    free(linha);
+}
+
 void tela_menu_principal(void) {
     char op;
     system("clear||cls");
@@ -141,29 +167,7 @@ void tela_sobre(char *desc) {
     printf("///            = = = = = Sistema de Gestão Escolar = = = = =                ///\n");
     printf("///                                                                         ///\n");
 
-    int limite = 71;
-    int inicio_linha = 0;
-    int aux = 0;
-    char *linha = malloc(limite * sizeof(char));
-
-    for(int c = 0; c < strlen(desc); c++) {
-        if(desc[c] == ' ') {
-            linha = malloc((strlen(desc) + 1) * sizeof(char));
-            aux = c;
-            char *str = cortar_string(desc, inicio_linha, c);
-            strcpy(linha, str);
-            free(str);
-        }
-        if (c % limite == 0 && c != 0) {
-            printf("/// %s ///\n", centralizar_texto(linha, limite));
-            linha = NULL;
-            inicio_linha = aux;
-        }
-    }
-    if(linha != NULL) {
-        printf("/// %s ///\n", centralizar_texto(linha, limite));
-    }
-    free(linha);
+    mostrar_descricao(desc, 71);
 
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
