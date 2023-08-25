@@ -27,6 +27,7 @@ void tela_excluir_material(void);
 
 void cabecalho1(void);
 void cabecalho2(char * titulo);
+void mostrar_descricao(char *desc, int limite);
 char* centralizar_texto(char * titulo, int tam);
 char* cortar_string(char *str, int inicio, int fim);
 
