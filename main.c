@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
+#include <ctype.h>
 
 
 void tela_menu_principal(void);
@@ -35,24 +37,134 @@ void tela_pesquisar_venda(void);
 void tela_alterar_venda(void);
 void tela_excluir_venda(void);
 
+void tela_relatorios(void);
+
 void cabecalho1(void);
 void cabecalho2(char * titulo);
 void mostrar_descricao(char *desc, int limite);
-char* centralizar_texto(char * titulo, int tam);
+char* centralizar_texto(char * titulo, int tam, int horizontal);
 char* cortar_string(char *str, int inicio, int fim);
-
+char* pegar_valor(char* mensagem, int tamanho, char* mensagem_erro);
+int pegar_inteiro(char* mensagem, int tamanho, char* mensagem_erro);
+bool validar_inteiro(char* inteiro);
+void mostrar_opcoes(char* opcoes[], int linha_tam);
 
 int main(void) {
-    tela_menu_principal();
-    tela_sobre("Programa de Gestão de Materiais de Construção que visa facilitar o controle de estoque e vendas de uma loja de materiais de construção.");
-    tela_equipe();
-    tela_menu_material();
-    tela_cadastrar_material();
-    tela_pesquisar_material();
-    tela_alterar_material();
-    tela_excluir_material();
+    int op = -1;
+    while(op != 0) {
+        system("clear||cls");
+        printf("\n");
+        cabecalho1();
+        printf("///                                                                         ///\n");
+        printf("///         = = = = = Sistema de Gestão de Materiais = = = = =              ///\n");
+        printf("///                                                                         ///\n");
+        char* opcoes[] = {
+            "Módulo Materiais",
+            "Módulo Clientes",
+            "Módulo Vendas",
+            "Módulo Relatórios",
+            "Equipe",
+            "Sobre",
+            NULL
+        };
+        mostrar_opcoes(
+            opcoes,
+            73
+        );
+        printf("///            0. Sair                                                      ///\n");
+        printf("///                                                                         ///\n");
+        op = pegar_inteiro("///            Escolha a opção desejada: ", 1, "Opção invalida!\n");
+        printf("///                                                                         ///\n");
+        printf("///////////////////////////////////////////////////////////////////////////////\n");
+
+        switch (op)
+        {
+        case 1:
+            tela_menu_material();
+            break;
+        case 2:
+            tela_menu_cliente();
+            break;
+        case 3:
+            tela_menu_venda();
+            break;
+        case 4:
+            tela_relatorios();
+            break;
+        case 5:
+            tela_equipe();
+            break;
+        case 6:
+            tela_sobre("Programa de Gestão de Materiais de Construção que visa facilitar o controle de estoque e vendas de uma loja de materiais de construção.");
+            break;
+        case 0:
+            printf("Saindo...\n");
+            break;
+        default:
+            printf("Opção invalida!\n");
+        }
+    }
     return 0;
 }
+
+
+void mostrar_opcoes(char* opcoes[], int linha_tam) {
+    int c = 0;
+    while(opcoes[c] != NULL) {
+        char* texto = malloc((17 + strlen(opcoes[c])) * sizeof(char));
+        sprintf(texto, "            %d. %s", c+1, opcoes[c]);
+        printf("///%s///\n", centralizar_texto(texto, linha_tam, -1));
+        c++;
+    }
+}
+
+
+bool validar_inteiro(char* numero) {
+    for(int c = 0; c < strlen(numero); c++) {
+        if(!isdigit(numero[c])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+int pegar_inteiro(char* mensagem, int tamanho, char* mensagem_erro) {
+    char* str = malloc(tamanho * sizeof(char));
+    bool valido = false;
+    while(!valido) {
+        strcpy(str, pegar_valor(mensagem, tamanho, mensagem_erro));
+        valido = validar_inteiro(str);
+        if(!valido) {
+            printf("%s",mensagem_erro);
+        }
+    }
+    return atoi(str);
+}
+
+
+char* pegar_valor(char* mensagem, int tamanho, char* mensagem_erro) {
+    bool valido = false;
+    char* var = malloc(tamanho * sizeof(char));
+    if(mensagem_erro == NULL) {
+        mensagem_erro = "Valor invalido!\n";
+    }
+    while(!valido) {
+        printf("%s", mensagem);
+        valido = scanf("%s", var) == 1 && strlen(var) <= tamanho;
+        if(!valido) {
+            printf("///            %s", mensagem_erro);
+            while(getchar() != '\n');
+            printf("\n\t\t\t>>> Tecle <ENTER> para continuar...\n");
+            getchar();
+            for(int c =0; c < 5; c++){
+                printf("\x1b[1A\x1b[2K");
+            }
+        }
+    }
+    getchar();
+    return var;
+}
+
 
 void cabecalho1(void) {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -73,7 +185,7 @@ void cabecalho2(char *titulo) {
     printf("///                                                                         ///\n");
     printf("///            ===================================================          ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
-    printf("///            = = = =%s= = = =          ///\n", centralizar_texto(titulo, 37));
+    printf("///            = = = =%s= = = =          ///\n", centralizar_texto(titulo, 37, 0));
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
     printf("///                Developed by @faltrenn -- since Aug, 2023                ///\n");
@@ -81,16 +193,24 @@ void cabecalho2(char *titulo) {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
 }
 
-char* centralizar_texto(char * texto, int tam) {
-    for(int c = 0;c < tam;c++) {
+char* centralizar_texto(char* texto, int tam, int horizontal) {
+    int tam_texto = strlen(texto);
+
+    for(int c = 0;c < tam_texto;c++) {
         if(texto[c] < 0) {
             tam++;
             c++;
         }
     }
+    int pos;
+    if(horizontal == 1) {
+        pos = tam - tam_texto;
+    } else if (horizontal == -1) {
+        pos = 0;
+    } else {
+        pos = tam/2 - tam_texto/2;
+    }
 
-    int tam_texto = strlen(texto);
-    int pos = tam/2 - tam_texto/2;
     char *str= malloc(tam * sizeof(char));
     for(int c = 0; c < tam; c++) {
         if(c >= pos && c < (pos + tam_texto)) {
@@ -116,13 +236,13 @@ void mostrar_descricao(char *desc, int limite) {
             free(str);
         }
         if (c % limite == 0 && c != 0) {
-            printf("/// %s ///\n", centralizar_texto(linha, limite));
+            printf("/// %s ///\n", centralizar_texto(linha, limite, 0));
             linha = NULL;
             inicio_linha = aux;
         }
     }
     if(linha != NULL) {
-        printf("/// %s ///\n", centralizar_texto(linha, limite));
+        printf("/// %s ///\n", centralizar_texto(linha, limite, 0));
     }
     free(linha);
 }
