@@ -14,8 +14,6 @@
 #include <string.h>
 
 
-/////
-// Assinatura das funções
 void tela_menu_principal(void);
 void tela_equipe(void);
 void tela_sobre(char *desc);
@@ -43,8 +41,7 @@ void mostrar_descricao(char *desc, int limite);
 char* centralizar_texto(char * titulo, int tam);
 char* cortar_string(char *str, int inicio, int fim);
 
-/////
-// Programa principal
+
 int main(void) {
     tela_menu_principal();
     tela_sobre("Programa de Gestão de Materiais de Construção que visa facilitar o controle de estoque e vendas de uma loja de materiais de construção.");
@@ -56,10 +53,6 @@ int main(void) {
     tela_excluir_material();
     return 0;
 }
-
-
-/////
-// Funções
 
 void cabecalho1(void) {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
