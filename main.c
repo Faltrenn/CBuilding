@@ -67,10 +67,7 @@ int main(void) {
             "Sobre",
             NULL
         };
-        mostrar_opcoes(
-            opcoes,
-            73
-        );
+        mostrar_opcoes(opcoes, 73);
         printf("///            0. Sair                                                      ///\n");
         printf("///                                                                         ///\n");
         op = pegar_inteiro("///            Escolha a opção desejada: ", 1, "Opção invalida!\n");
@@ -154,11 +151,11 @@ char* pegar_valor(char* mensagem, int tamanho, char* mensagem_erro) {
         if(!valido) {
             printf("///            %s", mensagem_erro);
             while(getchar() != '\n');
-            printf("\n\t\t\t>>> Tecle <ENTER> para continuar...\n");
-            getchar();
-            for(int c =0; c < 5; c++){
-                printf("\x1b[1A\x1b[2K");
-            }
+            // printf("\n\t\t\t>>> Tecle <ENTER> para continuar...\n");
+            // getchar();
+            // for(int c =0; c < 5; c++){
+            //     printf("\x1b[1A\x1b[2K");
+            // }
         }
     }
     getchar();
@@ -255,12 +252,19 @@ void tela_menu_principal(void) {
     printf("///                                                                         ///\n");
     printf("///         = = = = = Sistema de Gestão de Materiais = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            1. Módulo Materiais                                          ///\n");
-    printf("///            2. Módulo Clientes                                           ///\n");
-    printf("///            3. Módulo Vendas                                             ///\n");
-    printf("///            4. Módulo Relatórios                                         ///\n");
-    printf("///            5. Equipe                                                    ///\n");
-    printf("///            6. Sobre                                                     ///\n");
+    
+    char* opcoes[] = {
+        "Módulo Materiais",
+        "Módulo Clientes",
+        "Módulo Vendas",
+        "Módulo Relatórios",
+        "Equipe",
+        "Sobre",
+        NULL
+    };
+
+    mostrar_opcoes(opcoes, 73);
+
     printf("///            0. Sair                                                      ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
@@ -333,10 +337,17 @@ void tela_menu_material(void) {
     printf("///            = = = = = = = = Menu Materiais  = = = = = = = =              ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            1. Cadastrar material                                        ///\n");
-    printf("///            2. Pesquisar material                                        ///\n");
-    printf("///            3. Atualizar material                                        ///\n");
-    printf("///            4. Excluir material                                          ///\n");
+
+    char* opcoes[] = {
+        "Cadastrar material",
+        "Pesquisar material",
+        "Atualizar material",
+        "Excluir material",
+        NULL
+    };
+
+    mostrar_opcoes(opcoes, 73);
+
     printf("///            0. Voltar ao menu anterior                                   ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
@@ -439,10 +450,17 @@ void tela_menu_cliente(void) {
     printf("///            = = = = = = = = Menu Materiais  = = = = = = = =              ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            1. Cadastrar cliente                                         ///\n");
-    printf("///            2. Pesquisar cliente                                         ///\n");
-    printf("///            3. Atualizar cliente                                         ///\n");
-    printf("///            4. Excluir cliente                                           ///\n");
+
+    char* opcoes[] = {
+        "Cadastrar cliente",
+        "Pesquisar cliente",
+        "Atualizar cliente",
+        "Excluir cliente",
+        NULL
+    };
+
+    mostrar_opcoes(opcoes, 73);
+
     printf("///            0. Voltar ao menu anterior                                   ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
@@ -545,10 +563,17 @@ void tela_menu_venda(void) {
     printf("///            = = = = = = = = Menu Materiais  = = = = = = = =              ///\n");
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
     printf("///                                                                         ///\n");
-    printf("///            1. Cadastrar venda                                           ///\n");
-    printf("///            2. Pesquisar venda                                           ///\n");
-    printf("///            3. Atualizar venda                                           ///\n");
-    printf("///            4. Excluir venda                                             ///\n");
+
+    char* opcoes[] = {
+        "Cadastrar venda",
+        "Pesquisar venda",
+        "Atualizar venda",
+        "Excluir venda",
+        NULL
+    };
+
+    mostrar_opcoes(opcoes, 73);
+    
     printf("///            0. Voltar ao menu anterior                                   ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");
