@@ -12,7 +12,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
 #include <ctype.h>
 #include "validar.c"
 #include "formatacoes.c"
@@ -114,18 +113,6 @@ void tela_menu_principal(void) {
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
-}
-
-
-char* cortar_string(char *str, int inicio, int fim) {
-    char *nova_str = malloc((fim - inicio + 1) * sizeof(char));
-    int c = 0;
-    for(int i = inicio; i < fim; i++) {
-        nova_str[c] = str[i];
-        c++;
-    }
-    nova_str[c] = '\0';
-    return nova_str;
 }
 
 void tela_sobre(char *desc) {

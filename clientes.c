@@ -2,40 +2,59 @@
 #include <stdlib.h>
 #include "clientes.h"
 #include "formatacoes.h"
+#include "validar.h"
 
 
 void tela_menu_cliente(void) {
-    char op;
-    system("clear||cls");
-    printf("\n");
-    cabecalho2("Modulo Materiais de Construcao");
-    printf("///                                                                         ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = Menu Materiais  = = = = = = = =              ///\n");
-    printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
-    printf("///                                                                         ///\n");
+    int op;
+    while(op != 0) {
+        system("clear||cls");
+        printf("\n");
+        cabecalho2("Modulo Materiais de Construcao");
+        printf("///                                                                         ///\n");
+        printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+        printf("///            = = = = = = = = Menu Materiais  = = = = = = = =              ///\n");
+        printf("///            = = = = = = = = = = = = = = = = = = = = = = = =              ///\n");
+        printf("///                                                                         ///\n");
 
-    char* opcoes[] = {
-        "Cadastrar cliente",
-        "Pesquisar cliente",
-        "Atualizar cliente",
-        "Excluir cliente",
-        NULL
-    };
+        char* opcoes[] = {
+            "Cadastrar cliente",
+            "Pesquisar cliente",
+            "Atualizar cliente",
+            "Excluir cliente",
+            NULL
+        };
 
-    mostrar_opcoes(opcoes, 73);
+        mostrar_opcoes(opcoes, 73);
 
-    printf("///            0. Voltar ao menu anterior                                   ///\n");
-    printf("///                                                                         ///\n");
-    printf("///            Escolha a opção desejada: ");
-    scanf("%c", &op);
-    getchar();
-    printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+        printf("///            0. Voltar ao menu anterior                                   ///\n");
+        printf("///                                                                         ///\n");
+        op = pegar_inteiro("///            Escolha a opção desejada: ", 1, "Opção inválida!");
+        printf("///                                                                         ///\n");
+        printf("///                                                                         ///\n");
+        printf("///////////////////////////////////////////////////////////////////////////////\n");
+        printf("\n");
+
+        switch (op) {
+        case 1:
+            tela_cadastrar_cliente();
+            break;
+        case 2:
+            tela_pesquisar_cliente();
+            break;
+        case 3:
+            tela_alterar_cliente();
+            break;
+        case 4:
+            tela_excluir_cliente();
+            break;
+        case 0:
+            printf("Saindo...\n");
+            break;
+        default:
+            printf("Opção invalida!\n");
+        }
+    }
 }
 
 

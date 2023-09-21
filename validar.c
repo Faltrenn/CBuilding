@@ -40,13 +40,19 @@ char* pegar_valor(char* mensagem, int tamanho, char* mensagem_erro) {
         if(!valido) {
             printf("///            %s", mensagem_erro);
             while(getchar() != '\n');
-            // printf("\n\t\t\t>>> Tecle <ENTER> para continuar...\n");
-            // getchar();
-            // for(int c =0; c < 5; c++){
-            //     printf("\x1b[1A\x1b[2K");
-            // }
         }
     }
     getchar();
     return var;
+}
+
+char* cortar_string(char *str, int inicio, int fim) {
+    char *nova_str = malloc((fim - inicio + 1) * sizeof(char));
+    int c = 0;
+    for(int i = inicio; i < fim; i++) {
+        nova_str[c] = str[i];
+        c++;
+    }
+    nova_str[c] = '\0';
+    return nova_str;
 }
