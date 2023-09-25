@@ -6,7 +6,7 @@
 
 
 void tela_menu_venda(void) {
-    int op;
+    int op = -1;
     while(op != 0) {
         system("clear||cls");
         printf("\n");

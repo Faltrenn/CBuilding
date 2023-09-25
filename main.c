@@ -13,11 +13,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "validar.c"
-#include "formatacoes.c"
-#include "clientes.c"
-#include "materiais.c"
-#include "vendas.c"
+#include "validar.h"
+#include "formatacoes.h"
+#include "clientes.h"
+#include "materiais.h"
+#include "vendas.h"
 
 
 void tela_menu_principal(void);
@@ -83,7 +83,7 @@ int main(void) {
 
 
 void tela_menu_principal(void) {
-    char op;
+    char op = -1;
     system("clear||cls");
     printf("\n");
     cabecalho1();

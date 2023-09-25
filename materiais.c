@@ -5,7 +5,7 @@
 #include "formatacoes.h"
 
 void tela_menu_material(void) {
-    int op;
+    int op = -1;
     while (op != 0) {
         system("clear||cls");
         printf("\n");
@@ -136,7 +136,7 @@ void tela_excluir_material(void) {
 
 
 void tela_relatorios(void) {
-    char op;
+    char op = -1;
     system("clear||cls");
     printf("\n");
     cabecalho2("Gestao de materiais de construcao");

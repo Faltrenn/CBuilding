@@ -24,9 +24,10 @@ int pegar_inteiro(char* mensagem, int tamanho, char* mensagem_erro) {
             printf("%s",mensagem_erro);
         }
     }
-    return atoi(str);
+    int num = atoi(str);
+    free(str);
+    return num;
 }
-
 
 char* pegar_valor(char* mensagem, int tamanho, char* mensagem_erro) {
     bool valido = false;
@@ -42,7 +43,6 @@ char* pegar_valor(char* mensagem, int tamanho, char* mensagem_erro) {
             while(getchar() != '\n');
         }
     }
-    getchar();
     return var;
 }
 
