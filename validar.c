@@ -26,6 +26,7 @@ int pegar_inteiro(char* mensagem, int tamanho, char* mensagem_erro) {
     }
     int num = atoi(str);
     free(str);
+    getchar();
     return num;
 }
 
