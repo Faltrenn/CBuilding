@@ -3,9 +3,6 @@
 #include <string.h>
 #include "formatacoes.h"
 
-#ifndef FORMAT_C
-#define FORMAT_C
-
 void cabecalho1(void) {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -28,7 +25,7 @@ void cabecalho2(char *titulo) {
     printf("///            = = = =%s= = = =          ///\n", centralizar_texto(titulo, 37, 0));
     printf("///            = = = = = = = = = = = = = = = = = = = = = = = = = =          ///\n");
     printf("///            ===================================================          ///\n");
-    printf("///                Developed by @faltrenn -- since Aug, 2023                ///\n");
+    printf("///                Developed by @Faltrenn -- since Aug, 2023                ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
 }
@@ -97,4 +94,3 @@ void mostrar_opcoes(char* opcoes[], int linha_tam) {
         c++;
     }
 }
-#endif
